@@ -1,0 +1,19 @@
+Silvia Marogel
+325CB
+
+Problema 1
+
+Pentru rezolvarea problemei, am folosit algoritmul de sortare topologica.
+Mai intai, am construit un graf cu toate literele alfabetului, iar pentru usurinta, am "codificat" literele cu ajutorul tabelei ASCII, pentru a le transforma in int-uri : codeASCII(litera) - 97. Astfel, nodurile vor fi 0 .. 25, adica a .. z.
+Pentru ca sunt intregi, am folosit matrice simpla de adiacenta, unde am pus 1 unde exista o muchie intre 2 noduri.
+Muchiile le-am trasat in functie de aparitia literelor in cuvinte. Am comparat cuvintele 2 cate 2, daca literele de pe pozitia curenta sunt egale, trece mai departe, daca sunt diferite, trage muchia x->y (pune 1 in matrice).
+
+Dupa ce am construit graful, incep sortarea topologica.
+Am folosit o metoda ajutatoare - topSortRec() - ce face recursivitatea efectiva si construieste stack-ul cu literele ordonate. Intra in fiecare nod, il viziteaza si il introduce in stack dupa ce ii viziteaza toti vecinii.
+Metoda topSort() foloseste topSortRec() pentru a construi stack-ul final, vizitand nodurile in ordine, mergand din vecin in vecin, tinand nodurile vizitate in vectorul visited (este dat parametru). In final, scoate in ordine elementele din stack si le introduce in String-ul solutie, transformand din int in char apoi in String.
+
+Dupa sortare, graful este verificat de cicluri. 
+Metoda hasCycleRec() face verificarea recursiva, cu DFS, avand 2 vectori de vizitare, unul local si unul pentru recursivitate. Mai intai, se viziteaza nodul curent in ambii vectori, apoi intra in recursivitate pe fiecare vecin al nodului. Daca s-au vizitat toate nodurile, iar rec[nod] = true, inseamna ca exista un ciclu, altfel intoarce false.
+Metoda hasCycle() foloseste aceasta funcite pentru a verifica pentru toate nodurile existena unui ciclu.
+
+In final, daca se gaseste un ciclu, in fisier va scrie "Imposibil", altfel este scrisa permutarea literelor din alfabet dupa sortarea acestora.
